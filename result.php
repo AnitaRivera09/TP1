@@ -1,9 +1,13 @@
 <?php
 require_once("functions.php");
+
+//Attribuer des valeurs aux variables
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $utilisateur = $_POST['utilisateur'];
 $motdepasse = $_POST['motdepasse'];
+$confirmation = $_POST['confirmation'];
+$validaok=0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
@@ -28,22 +32,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Il est requis de compléter le champ correspondant au Mot de Passé";
     }
 
+    //Validation du champ Confirmation Mot de Passe
+    if (empty($confirmation)) {
+        $errors[] = "Il est requis de compléter le champ correspondant au Confirmation Mot de Passé";
+    }
+
     //S'il y a des champs vides, affichez un message d'erreur...
     foreach ($errors as $error) {
         echo $error . "<br>";
     }
 
  }    
+    //Validation pour savoir si la clé est égale à la confirmation
+
+    if ($motdepasse == $confirmation){
+       $validaok=1;
+    }else{
+        echo ("Attention! le mot de passe saisi n'est pas le même que la confirmation, veuillez vérifier !");
+    }    
      
      //Validation du nombre de caractères dans le mot de passe
       $length = strlen($motdepasse);
       if (($length < 6) || ($length > 10)){
         echo "! Votre mot de passe doit contenir entre 6 et 10 caractères, veuillez vérifier !";
       }else{
+        if($validaok==1){
         echo "</br>";
         $saltedName = addSalt($_POST['motdepasse']);
         //var_dump($saltedName);
-
+        
+        //Impression de données
         $encodeName = encodeName($saltedName);
         echo "</br>";
         echo "Les données saisies sont :";
@@ -59,6 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "</br>";
         echo "</br>";
       }
+    }
+
 
 $nomLengthIsValid = nomLengthIsValid($_POST['nom']);
 echo "</br>";

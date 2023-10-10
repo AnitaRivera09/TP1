@@ -16,6 +16,9 @@
  <label>Mot de Passe:&nbsp;&nbsp</label>
  <input type="password" name="motdepasse" id="test" size="20" maxlength="20"></br>
  <p></p>
+ <label>Confirmation:&nbsp;&nbsp</label>
+ <input type="password" name="confirmation" id="test" size="20" maxlength="20"></br>
+ <p></p>
  <p></p>
  <input type="submit" value="Envoyer">
  <input type="reset" value="Anuler">
